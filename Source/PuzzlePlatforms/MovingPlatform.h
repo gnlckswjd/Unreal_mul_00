@@ -34,6 +34,7 @@ private:
 	FVector GlobalTargetLocation;
 	FVector GlobalStartLocation;
 
+	
 	UPROPERTY(EditAnywhere)
 	int ActiveTriggers = 1;
 };

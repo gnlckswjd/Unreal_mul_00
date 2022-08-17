@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/Widget.h"
 #include "Engine/GameInstance.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
@@ -23,5 +24,8 @@ public:
 
 	UFUNCTION(Exec)
 	void Join(const FString& Address);
+
+private:
+	TSubclassOf<class UUserWidget> MenuClass;
 	
 };
