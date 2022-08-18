@@ -10,7 +10,7 @@
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
-	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("Game/MenuSystem/MainMenu"));
+	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/MainMenu"));
 
 	if(MenuBPClass.Class == nullptr)
 	{
@@ -33,6 +33,19 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	if (!ensure((Menu != nullptr))) return;
 
 	Menu->AddToViewport();
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+
+	if (PlayerController == nullptr)
+	{
+		return;
+	}
+	FInputModeUIOnly InputModeData;
+	InputModeData.SetWidgetToFocus(Menu->TakeWidget());
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor=true;
 }
 
 void UPuzzlePlatformsGameInstance::Host()
