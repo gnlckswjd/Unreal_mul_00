@@ -18,6 +18,9 @@ public:
 	UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer);
 	virtual void Init();
 
+	UFUNCTION(BlueprintCallable)
+	void LoadMenu();
+	
 
 	UFUNCTION(Exec)
 	void Host();
