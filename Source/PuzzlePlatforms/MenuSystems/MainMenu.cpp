@@ -2,7 +2,13 @@
 
 
 #include "MainMenu.h"
+#include "MenuInterface.h"
 #include "Components/Button.h"
+
+void UMainMenu::SetMenuInterface(IMenuInterface* MenuInterface)
+{
+	this->_MenuInterface = MenuInterface;
+}
 
 bool UMainMenu::Initialize()
 {
@@ -18,5 +24,6 @@ bool UMainMenu::Initialize()
 
 void UMainMenu::HostServer()
 {
-	UE_LOG(LogTemp, Warning, TEXT("I'm gonna host server!"));
+	if(_MenuInterface==nullptr) return;
+	_MenuInterface->Host();
 }
