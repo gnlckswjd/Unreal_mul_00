@@ -12,6 +12,7 @@
  */
 class IMenuInterface;
 class UButton;
+class UWidget;
 
 UCLASS()
 class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
@@ -31,13 +32,40 @@ protected:
 private:
 		
 	UPROPERTY(meta = (BindWidget))
-	UButton* Host;
+	UButton* HostButton;
 	
 	UPROPERTY(meta = (BindWidget))
-	UButton* Join;
+	UButton* JoinButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton* CancelButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton* JoinTwoButton;
+	
+	UPROPERTY(meta = (BindWidget))
+    class UWidgetSwitcher* MenuSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* JoinMenu;
+
+	UPROPERTY(meta=(BindWidget))
+	UWidget* Menu;
+	
+	UPROPERTY(meta =(BindWidget))
+	class UEditableTextBox* IPAddressField;
 
 	UFUNCTION()
 	void HostServer();
+
+	UFUNCTION()
+	void OpenJoinMenu();
+
+	UFUNCTION()
+	void CancelMenu();
+
+	UFUNCTION()
+	void JoinToGame();
 
 	IMenuInterface* _MenuInterface;
 };
