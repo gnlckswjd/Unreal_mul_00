@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "MenuSystems/MainMenu.h"
 #include "MenuSystems/MenuInterface.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
@@ -30,5 +31,7 @@ public:
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+
+	class UMainMenu* Menu;
 	
 };
