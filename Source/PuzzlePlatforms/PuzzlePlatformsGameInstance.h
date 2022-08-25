@@ -29,9 +29,16 @@ public:
 	UFUNCTION(Exec)
 	void Join(const FString& Address);
 
+	UFUNCTION(BlueprintCallable)
+	void GameMenu();
+	class UMainMenu* Menu;
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+	TSubclassOf<class UUserWidget> ExitMenuClass;
+	
+	
+	class UGameMenu* ExitMenu;
 
-	class UMainMenu* Menu;
+	virtual  void LoadMainMenu() override;
 	
 };

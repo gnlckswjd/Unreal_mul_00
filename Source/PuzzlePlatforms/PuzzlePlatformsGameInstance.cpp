@@ -6,6 +6,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "PlatformTrigger.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuSystems/GameMenu.h"
 #include "MenuSystems/MainMenu.h"
 
 
@@ -19,6 +20,14 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 	}
 
 	MenuClass = MenuBPClass.Class;
+
+	ConstructorHelpers::FClassFinder<UUserWidget> ExitMenuBPClass(TEXT("/Game/MenuSystem/ExitMenu"));
+
+	if(ExitMenuBPClass.Class == nullptr)
+	{
+		return;
+	}
+	ExitMenuClass=ExitMenuBPClass.Class;
 }
 
 void UPuzzlePlatformsGameInstance::Init()
@@ -38,6 +47,8 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	Menu->SetMenuInterface(this);
 
 }
+
+
 
 void UPuzzlePlatformsGameInstance::Host()
 {
@@ -76,5 +87,27 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 	if (!ensure(PlayerController != nullptr)) return;
 
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::GameMenu()
+{
+	if(!ensure(ExitMenuClass != nullptr)) return;
+	ExitMenu = CreateWidget<UGameMenu>(this, ExitMenuClass);
+
+	if (ExitMenu==nullptr) return;
+
+	ExitMenu->Setup();
+
+	ExitMenu->SetMenuInterface(this);
+	
+}
+
+void UPuzzlePlatformsGameInstance::LoadMainMenu()
+{
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if(PlayerController == nullptr) return;
+
+	PlayerController->ClientTravel("/Game/PuzzlePlatform/Maps/Main", ETravelType::TRAVEL_Absolute);
+	
 }
 

@@ -76,6 +76,9 @@ bool UMainMenu::Initialize()
 
 	if(JoinTwoButton==nullptr) return false;
 	JoinTwoButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToGame);
+
+	if(ExitButton==nullptr) return false;
+	ExitButton->OnClicked.AddDynamic(this,&UMainMenu::EXitGame);
 	
 	return true;
 }
@@ -109,4 +112,20 @@ void UMainMenu::JoinToGame()
 	_MenuInterface->Join(IPText.ToString());
 	
 	
+}
+
+void UMainMenu::EXitGame()
+{
+	UWorld* World = GetWorld();
+
+	if(World == nullptr) return;
+	
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+
+	if (PlayerController == nullptr)
+	{
+		return;
+	}
+	PlayerController->ConsoleCommand("quit");
+
 }

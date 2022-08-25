@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-
+#include "GameMenu.h"
 #include "MainMenu.generated.h"
 
 /**
@@ -42,6 +42,10 @@ private:
 
 	UPROPERTY(meta=(BindWidget))
 	UButton* JoinTwoButton;
+
+	UPROPERTY(meta=(BindWidget))
+	UButton* ExitButton;
+	
 	
 	UPROPERTY(meta = (BindWidget))
     class UWidgetSwitcher* MenuSwitcher;
@@ -66,6 +70,9 @@ private:
 
 	UFUNCTION()
 	void JoinToGame();
+
+	UFUNCTION()
+	void EXitGame();
 
 	IMenuInterface* _MenuInterface;
 };
